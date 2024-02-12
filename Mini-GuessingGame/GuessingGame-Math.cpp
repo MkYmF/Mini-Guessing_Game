@@ -4,45 +4,57 @@
 int main();
 
 char c_q;
-int randomized_number, range, answer;
+int randomized_number, range, answer, correct_answers, incorrect_answers;
 
 int randomizer(int range, int answer)
 {
     int maximum_number = range;
     int youranswer = answer;
 
-    randomized_number = rand() % maximum_number;
+    randomized_number = rand() % maximum_number + 1;
     
-    std::cout << "Random number is : " << randomized_number << std::endl;
-    std::cout << "Your Answer : " << youranswer << std::endl;
-
-    std::string guessedNumber = (randomized_number != youranswer) ? "Your Guess is Correct!\n" : "Better Luck next time!\n";
-
+    std::cout << "\nRandom number : " << randomized_number << "\n";
+    std::cout << "Your Answer   : " << youranswer << "\n\n";
+    
+    if(randomized_number == youranswer)
+    {
+        correct_answers += 1;
+        std::cout << "You guessed correct!\n\n";
+    }
+    else
+    {
+        incorrect_answers += 1;
+        std::cout << "Wrong guess, Better luck next time!\n\n";
+    }
+ 
     std::cout << "Type C to continue or Q to quit : ";
     std::cin >> c_q;
 
     switch (c_q)
     {
-    case 'C' || 'c':
-        main();
-        break;
-    default:
-        break;
+        case 'C':
+        case 'c':
+            main();
+            break;
+
+        default:
+            break;
     }
     return 0;
 }
 
 int main()
 {
-    std::cout << "This is Guessing game" << std::endl;
-    std::cout << "You can easily enter Max Range of Numbers!" << std::endl;
-    std::cout << "Example if i enter 100, the choices would be 0 to 100" << std::endl;
+    system("cls");
+
+    std::cout << "Correct Answer : " << correct_answers << "\t\t" << "Incorrect Answer : " << incorrect_answers << std::endl << std::endl;
 
     std::cout << "Enter the number you want to be the maximum range of this game." << std::endl;
+
     std::cout << "Range : ";
     std::cin >> range;
 
-    std::cout << "Enter between 0 to " << std::fmax(0, range) << std::endl; 
+    std::cout << "\nEnter between 0 to " << std::fmax(0, range) << std::endl; 
     std::cin >> answer;
     
     return randomizer(range, answer);
